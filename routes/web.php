@@ -23,5 +23,26 @@ Route::get('/register', function () {
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
-});
+})->name('admin');
+
+Route::get('/tables', function () {
+    return view('admin.tables');
+})->name('tables');
+
+Route::get('/profile', function () {
+    return view('admin.profile');
+})->name('profile');
+
+Route::get('/signin', function () {
+    return view('admin.signin');
+})->name('signin');
+
+Route::get('/signup', function () {
+    return view('admin.signup');
+})->name('signup');
+
+Route::get('/notification', function () {
+    return view('admin.notification');
+})->name('notification');
+
 
