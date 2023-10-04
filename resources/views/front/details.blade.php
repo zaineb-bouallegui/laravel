@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
- 
+
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
  @vite(['resources/assets/vendor/bootstrap-icons/bootstrap-icons.css'])
  @vite(['resources/assets/vendor/swiper/swiper-bundle.min.css'])
  @vite(['resources/assets/vendor/glightbox/css/glightbox.min.css'])
- @vite(['resources/assets/vendor/aos/aos.css'])
+
 
   <!-- Template Main CSS File -->
  @vite(['resources/assets/css/main.css'])
@@ -86,7 +86,7 @@
     </div>
   </header><!-- End Header -->
 
-  <main id="main" data-aos="fade" data-aos-delay="1500">
+  <main id="main" >
 
     <!-- ======= End Page Header ======= -->
     <div class="page-header d-flex align-items-center">
@@ -219,7 +219,7 @@
   @vite(['resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'])
   @vite(['resources/assets/vendor/swiper/swiper-bundle.min.js'])
   @vite(['resources/assets/vendor/glightbox/js/glightbox.min.js'])
-  @vite(['resources/assets/vendor/aos/aos.js'])
+
   @vite(['resources/assets/vendor/php-email-form/validate.js'])
 
   <!-- Template Main JS File -->

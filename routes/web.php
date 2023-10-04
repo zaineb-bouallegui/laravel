@@ -49,4 +49,8 @@ Route::get('/details', function () {
     return view('front.details');
 })->name('details');
 
+Route::get('/index', function () {
+    return view('front.index');
+})->name('index');
+
 
