@@ -10,13 +10,12 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
- @vite(['resources/assets/img/favicon.png'])
- @vite(['resources/assets/img/apple-touch-icon.png'])
+ 
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- @vite(['resources/https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap'])
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
  @vite(['resources/assets/vendor/bootstrap/css/bootstrap.min.css'])
@@ -45,7 +44,6 @@
 
       <a href="index.html" class="logo d-flex align-items-center  me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="{{Vite::asset('resources/assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
         <h1>PhotoFolio</h1>
       </a>
@@ -225,7 +223,7 @@
   @vite(['resources/assets/vendor/php-email-form/validate.js'])
 
   <!-- Template Main JS File -->
-  @vite(['resources/'])="assets/js/main.js">
+  @vite(['resources/assets/js/main.js'])
 
 </body>
 
