@@ -45,4 +45,8 @@ Route::get('/notification', function () {
     return view('admin.notification');
 })->name('notification');
 
+Route::get('/details', function () {
+    return view('front.details');
+})->name('details');
+
 
