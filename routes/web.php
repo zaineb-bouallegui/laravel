@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,5 +78,13 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('front.about');
 })->name('about');
+
+
+
+Route::get('/locations/create', [LocationController::class, 'create']);
+Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
+Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
+Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+
 
 
