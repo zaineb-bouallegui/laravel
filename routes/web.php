@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReviewController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -77,5 +79,32 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('front.about');
 })->name('about');
+
+
+
+// Route::get('/index',[ReviewController::class,'index']);
+Route::get('/reviews', [ReviewController::class, 'index'])->name('Review.index');
+
+Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('Review.show');
+
+
+Route::get('/reviews/create', [ReviewController::class, 'create'])->name('Review.create');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('Review.store');
+
+
+Route::get('/reviews/{review}/delete', [ReviewController::class, 'delete'])->name('Review.delete');
+Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('Review.destroy');
+
+Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('Review.edit');
+Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('Review.update');
+
+
+
+
+
+// Route::get('/create',[ReviewController::class,'create']);
+// Route::get('/update',[ReviewController::class,'update']);
+// Route::get('/delete',[ReviewController::class,'delete']);
+// Route::get('/show/{id}',[ReviewController::class,'show']);
 
 
