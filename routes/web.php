@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::resource("event",EventController::class);
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,5 +85,7 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('front.about');
 })->name('about');
+
+
 
 
