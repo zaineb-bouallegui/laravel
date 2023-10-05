@@ -62,4 +62,20 @@ Route::get('/sample', function () {
     return view('front.sample');
 })->name('sample');
 
+Route::get('/contact', function () {
+    return view('front.contact');
+})->name('contact');
+
+Route::get('/login', function () {
+    return view('front.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('front.register');
+})->name('register');
+
+Route::get('/about', function () {
+    return view('front.about');
+})->name('about');
+
 
