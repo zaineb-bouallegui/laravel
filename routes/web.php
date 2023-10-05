@@ -54,3 +54,12 @@ Route::get('/index', function () {
 })->name('index');
 
 
+Route::get('/services', function () {
+    return view('front.services');
+})->name('services');
+
+Route::get('/sample', function () {
+    return view('front.sample');
+})->name('sample');
+
+
