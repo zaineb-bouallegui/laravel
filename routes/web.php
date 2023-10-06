@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ToolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,5 +80,22 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('front.about');
 })->name('about');
+
+
+
+////////////////////ala////////
+Route::get('/tool/create', [ToolController::class, 'create'])->name('tools.create');
+Route::post('/tool/store', [ToolController::class, 'store'])->name('tools.store');
+Route::get('/tool/index', [ToolController::class, 'index'])->name('Tool.index');
+
+Route::get('/tool/{tool}/delete', [ToolController::class, 'delete'])->name('tools.delete');
+Route::delete('/tools/{tool}', [ToolController::class, 'destroy'])->name('tools.destroy');
+
+
+Route::get('/tool/{tool}/edit', [ToolController::class, 'edit'])->name('tools.edit');
+Route::patch('/toolsUp/{tool}', [ToolController::class, 'update'])->name('tools.update');
+
+
+
 
 
