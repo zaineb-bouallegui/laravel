@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProduitsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,5 +77,11 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('front.about');
 })->name('about');
+
+
+Route::resource('admin/produit', ProduitsController::class)->except(['show']);
+Route::delete('/admin/produit/{id}', 'ProduitsController@destroy')->name('produit.destroy');
+Route::get('/admin/produit/{id}/edit', 'ProduitsController@edit')->name('produit.edit');
+
 
 
