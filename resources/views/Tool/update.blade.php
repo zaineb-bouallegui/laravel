@@ -6,7 +6,7 @@
 <body>
     <h1>Mettre à jour un art matériel</h1>
     
-    <form method="POST" action="{{ route('tools.update', ['tool' => $tool->id]) }}">
+    <form method="POST" action="{{ route('tools.update', $tool) }}">
         @csrf <!-- CSRF Token -->
         @method('PATCH') <!-- Utilisez la méthode HTTP PUT pour la mise à jour -->
 

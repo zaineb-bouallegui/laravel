@@ -16,7 +16,7 @@
             @foreach($tools as $tool)
             <tr>
                 <td>{{ $tool->id }}</td>
-                <td>{{ $tool->name }}</td>
+                <td>{{ $tool->nom }}</td>
                 <td>{{ $tool->description }}</td>
                 <td>{{ $tool->price }}</td>
                 <td>{{ $tool->stock }}</td>
@@ -26,7 +26,7 @@
                     <a href="{{ route('tools.delete', $tool) }}">
                         <button type="button" class="btn btn-link">Delete</button>
                 </a>
-                    <a href="{{ route('tools.update', $tool) }}">
+                    <a href="{{ route('tools.edit', $tool) }}">
                         <button type="button" class="btn btn-link">Update</button>
 
                 </td>
