@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head></head>
+<head>
+@include('layouts.head')
+
+</head>
 <body>
 
 @include('layouts.layout')

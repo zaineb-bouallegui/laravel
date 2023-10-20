@@ -18,8 +18,8 @@ class ReviewFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->safeEmail(),
-            'title' => $this->faker->title(),
-            'content' => $this->faker->paragraph, // Generate random paragraph for review content
+            'subject' => $this->faker->text(50),
+            'message' => $this->faker->paragraph, // Generate random paragraph for review subject
             'rating' => $this->faker->numberBetween(1, 5), // Random rating between 1 and 5
         ];
     }

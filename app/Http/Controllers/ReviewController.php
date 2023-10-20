@@ -14,6 +14,12 @@ class ReviewController extends Controller
         return view('Review.index',['reviews' => $reviews]);
     }
 
+    public function indexFront(){
+        $reviews = Review::all();
+        return view('front.about',['reviews' => $reviews]);
+    }
+
+
     public function create(){
         return view('Review.create');
     }
@@ -21,17 +27,17 @@ class ReviewController extends Controller
 {
     // Validate the form data
     $validatedData = $request->validate([
-        'email' => 'required|string',
-        'title' => 'required|string',
-        'content' => 'required|string',
-        'rating' => 'required|integer',
+        'email' => 'required|email',
+        'subject' => 'required|string',
+        'message' => 'required|string',
+        'rating' => 'required|integer|min:1|max:5',
     ]);
 
     // Create a new review record in the database
     Review::create($validatedData);
 
     // Redirect to the reviews index page or a success page
-    return redirect()->route('Review.index');
+    return redirect()->route('Review.index')->with('success', 'Review submitted successfully!');
 }
 
 
@@ -72,10 +78,10 @@ class ReviewController extends Controller
 public function update(Request $request, Review $review)
 {
     $validatedData = $request->validate([
-        'email' => 'required|string',
-        'title' => 'required|string',
-        'content' => 'required|string',
-        'rating' => 'required|integer',
+        'email' => 'required|email',
+        'subject' => 'required|string',
+        'message' => 'required|string',
+        'rating' => 'required|integer|min:1|max:5',
     ]);
 
     $review->update($validatedData);

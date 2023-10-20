@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->text('title'); 
-            $table->text('content'); 
+            $table->string('subject'); 
+            $table->text('message'); 
             $table->unsignedTinyInteger('rating'); // A rating from 1 to 5
             $table->timestamps();
         });

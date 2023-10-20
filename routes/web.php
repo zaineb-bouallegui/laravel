@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
+
 
 
 /*
@@ -79,6 +81,7 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('front.about');
 })->name('about');
+Route::get('/about', [ReviewController::class, 'indexFront'])->name('front.about');
 
 
 
@@ -88,7 +91,7 @@ Route::get('/reviews', [ReviewController::class, 'index'])->name('Review.index')
 Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('Review.show');
 
 
-Route::get('/reviews/create', [ReviewController::class, 'create'])->name('Review.create');
+Route::get('/create', [ReviewController::class, 'create'])->name('Review.create');
 Route::post('/reviews', [ReviewController::class, 'store'])->name('Review.store');
 
 
@@ -97,6 +100,26 @@ Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('
 
 Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('Review.edit');
 Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('Review.update');
+
+
+
+
+
+
+Route::get('/comments', [CommentController::class, 'index'])->name('Comment.index');
+
+Route::get('/comments/{comment}', [CommentController::class, 'show'])->name('Comment.show');
+
+
+Route::get('/createC', [CommentController::class, 'create'])->name('Comment.create');
+Route::post('/comments', [CommentController::class, 'store'])->name('Comment.store');
+
+
+Route::get('/comments/{comment}/delete', [CommentController::class, 'delete'])->name('Comment.delete');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('Comment.destroy');
+
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('Comment.edit');
+Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name('Comment.update');
 
 
 

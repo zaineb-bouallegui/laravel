@@ -5,6 +5,20 @@
 @include('layoutsFront.head')
 
 </head>
+@php
+function displayStars($rating) {
+    $stars = '';
+    for ($i = 1; $i <= 5; $i++) {
+        if ($i <= $rating) {
+            $stars .= '<i class="bi bi-star text-warning"></i>';
+        } else {
+            $stars .= '<i class="bi bi-star text-secondary"></i>';
+        }
+    }
+    return $stars;
+}
+@endphp
+
 
 <body>
 
@@ -82,94 +96,33 @@
         <div class="section-header">
           <h2>Testimonials</h2>
           <p>What they are saying</p>
+          <a href="{{('create')}}"><p class="bg-success text-white px-2 py-1 rounded">click to give a review !</p></a>
+
         </div>
 
         <div class="slides-3 swiper">
-          <div class="swiper-wrapper">
-
+    <div class="swiper-wrapper">
+        @foreach($reviews as $review)
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <div class="testimonial-item">
+                    <div class="stars">
+                        {!! displayStars($review->rating) !!}
+                    </div>
+                    <p>{{ $review->content }}</p>
+                    <div class="profile mt-auto">
+                        <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-1.jpg')}}" class="testimonial-img" alt="">
+                        <h6>{{ $review->email }}</h6>
+                        <h4>{{ $review->title }}</h4>
+                    </div>
                 </div>
-                <p>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-1.jpg')}}" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
-                </div>
-              </div>
             </div><!-- End testimonial item -->
+        @endforeach
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-3.jpg')}}" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-4.jpg')}}" class="testimonial-img" alt="">
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                </p>
-                <div class="profile mt-auto">
-                  <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-5.jpg')}}" class="testimonial-img" alt="">
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
 
       </div>
     </section><!-- End Testimonials Section -->

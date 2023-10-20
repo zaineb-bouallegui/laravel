@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class Comment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'email',
-        'subject',
+        'user',
         'message',
-        'rating',
     ];
 }
