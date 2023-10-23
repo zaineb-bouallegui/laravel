@@ -50,7 +50,7 @@
                     <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Id</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Image</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Photos</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">City</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Address</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Longtitude</th>
@@ -69,8 +69,13 @@
                         <p class="text-sm font-weight-bold mb-0">{{ $location->name }}</p>
                       </td>
                       <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->image }}</p>
-                      </td>
+                    <!-- Display the ID of the associated photo(s) -->
+                    <p class="text-sm font-weight-bold mb-0">
+                        @foreach($location->photos as $photo)
+                           <li>{{ $photo->id }}:{{ $photo->title }}</li>
+                        @endforeach
+                    </p>
+                </td>
                       <td>
                         <p class="text-sm font-weight-bold mb-0">{{ $location->city }}</p>
                       </td>
@@ -84,15 +89,17 @@
                         <p class="text-sm font-weight-bold mb-0">{{ $location->latitude }}</p>
                       </td>
                       <td>
-                    <textarea class="form-control" rows="4">{{ $location->description }}</textarea>
-                    </td>
-                    <td>
-                    <form action="{{ route('locations.destroy', $location->id) }}" method="POST">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    <textarea class="form-control" rows="4">{{ $location->description }}</textarea>
 </td>
-</form>
+<td>
+    <form action="{{ route('locations.destroy', $location->id) }}" method="POST" style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+
+    <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-primary btn-sm">Modify</a>
+</td>
 
         @endforeach
     </tbody>
@@ -149,12 +156,7 @@
                             <input type="text" class="form-control" name="city">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Image</label>
-                            <input type="file" class="form-control" name="image">
-                        </div>
-                    </div>
+                   
                 </div>
                 <div class="row mb-3">
                     <div class="input-group input-group-outline">

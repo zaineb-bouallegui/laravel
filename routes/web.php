@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
-
+use App\Http\Controllers\PhotoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,10 +81,22 @@ Route::get('/about', function () {
 
 
 
-Route::get('/locations/create', [LocationController::class, 'create']);
-Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
+
+Route::get('/locations', [LocationController::class, 'index'])->name('locations');
 Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+Route::get('/locations/{location}', [LocationController::class, 'edit'])->name('locations.edit');
+Route::put('/locations/{id}', [LocationController::class, 'update'])->name('locations.update');
+
+Route::get('/photos', [PhotoController::class, 'index'])->name('photos.index');
+Route::get('/photos', [PhotoController::class, 'index'])->name('photos'); 
+Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
+Route::post('/photos', [PhotoController::class, 'store'])->name('photos.store');
+Route::get('/photos/{photo}', [PhotoController::class, 'edit'])->name('photos.edit');
+Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('photos.update');
+
+
+
 
 
 

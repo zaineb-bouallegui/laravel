@@ -18,10 +18,14 @@ class Location extends Model
         'address',
         'latitude',
         'longitude',
-        'image',
         'city',
         'description',
     ];
-
+    
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+    
 
 }

@@ -26,36 +26,44 @@ public function store(Request $request)
 {
     $location = new Location;
 
-    $location->name = $request->name; // Get the content of the 'name' field
-    $location->address = $request->address; // Get the content of the 'address' field
-    $location->latitude = $request->latitude; // Get the content of the 'latitude' field
-    $location->longitude = $request->longitude; // Get the content of the 'longitude' field
-    $location->city = $request->city; // Get the content of the 'city' field
-    $location->description = $request->description; // Get the content of the 'description' field
+    $location->name = $request->name; 
+    $location->address = $request->address;
+    $location->latitude = $request->latitude; 
+    $location->longitude = $request->longitude; 
+    $location->city = $request->city;
+    $location->description = $request->description; 
 
-    // Check if an image file was uploaded and handle it
-    if ($request->hasFile('image')) {
-        // Store the uploaded image and set the 'image' field in the Location model
-        $imagePath = $request->file('image')->store('images');
-        $location->image = $imagePath;
-    }
-
-    // Save the Location model to the database
+   
     $location->save();
 
-    // Redirect to the location list page or wherever you prefer
-    return redirect()->route('locations.index')->with('success', 'Location added successfully!');
+   
+    return redirect()->route('locations')->with('success', 'Location added successfully!');
 }
 
 
 
+public function edit(Location $location)
+{
+    return view('admin.locationsEdit', compact('location'));
+}
+
+
+public function update(Request $request, $id)
+{
+    
+    // $data = $request->except('_token','_method');
+
+    Location::where('id', $id)->update($request->all());
+
+    return redirect()->route('locations');
+}
 
 
     public function destroy(Location $location)
     {
         $location->delete();
     
-        return redirect()->route('locations.index')->with('success', 'Location deleted successfully!');
+        return redirect()->route('locations')->with('success', 'Location deleted successfully!');
     }
     
 }
