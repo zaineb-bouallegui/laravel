@@ -87,7 +87,7 @@ public function update(Request $request, Review $review)
     $review->update($validatedData);
 
     // Redirect to the reviews index page or a success page
-    return redirect()->route('Review.index');
+    return redirect()->route('Review.about');
 }
 
 

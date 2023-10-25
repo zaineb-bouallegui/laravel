@@ -11,16 +11,16 @@
 
     <nav id="navbar" class="navbar">
         <ul>
-            <li><a href="{{('index')}}" class="active">Home</a></li>
-            <li><a href="{{('about')}}">About</a></li>
+            <li><a href="{{ route('index')}}" class="active">Home</a></li>
+            <li><a href="{{ route('about')}}">About</a></li>
             <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
-                    <li><a href="{{('index')}}">Nature</a></li>
-                    <li><a href="{{('index')}}">People</a></li>
-                    <li><a href="{{('index')}}">Architecture</a></li>
-                    <li><a href="{{('index')}}">Animals</a></li>
-                    <li><a href="{{('index')}}">Sports</a></li>
-                    <li><a href="{{('index')}}">Travel</a></li>
+                    <li><a href="{{ route('index')}}">Nature</a></li>
+                    <li><a href="{{ route('index')}}">People</a></li>
+                    <li><a href="{{ route('index')}}">Architecture</a></li>
+                    <li><a href="{{ route('index')}}">Animals</a></li>
+                    <li><a href="{{ route('index')}}">Sports</a></li>
+                    <li><a href="{{ route('index')}}">Travel</a></li>
                     <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             <li><a href="#">Sub Menu 1</a></li>
@@ -30,10 +30,10 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="{{('services')}}">Services</a></li>
-            <li><a href="{{('contact')}}">Contact</a></li>
+            <li><a href="{{ route('services')}}">Services</a></li>
+            <li><a href="{{ route('contact')}}">Contact</a></li>
 
-            <li><a href="{{('login')}}">Login</a></li>
+            <li><a href="{{ route('login')}}">Login</a></li>
 
         </ul>
     </nav><!-- .navbar -->

@@ -79,9 +79,9 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::get('/about', function () {
-    return view('front.about');
+    return view('about');
 })->name('about');
-Route::get('/about', [ReviewController::class, 'indexFront'])->name('front.about');
+Route::get('/about', [ReviewController::class, 'indexFront'])->name('about');
 
 
 
@@ -98,8 +98,8 @@ Route::post('/reviews', [ReviewController::class, 'store'])->name('Review.store'
 Route::get('/reviews/{review}/delete', [ReviewController::class, 'delete'])->name('Review.delete');
 Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('Review.destroy');
 
-Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('Review.edit');
-Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('Review.update');
+Route::get('/about/{review}/edit', [ReviewController::class, 'edit'])->name('Review.edit');
+Route::patch('/about/{review}', [ReviewController::class, 'update'])->name('Review.update');
 
 
 

@@ -108,12 +108,13 @@ function displayStars($rating) {
                     <div class="stars">
                         {!! displayStars($review->rating) !!}
                     </div>
-                    <p>{{ $review->content }}</p>
+                    <p>{{ $review->message }}</p>
                     <div class="profile mt-auto">
                         <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-1.jpg')}}" class="testimonial-img" alt="">
                         <h6>{{ $review->email }}</h6>
-                        <h4>{{ $review->title }}</h4>
+                        <h4>{{ $review->subject }}</h4>
                     </div>
+                    <a class="cta-btn"  href="{{ route('Review.edit', $review) }}">Edit</a>
                 </div>
             </div><!-- End testimonial item -->
         @endforeach
