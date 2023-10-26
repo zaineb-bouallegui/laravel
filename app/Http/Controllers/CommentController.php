@@ -21,7 +21,7 @@ class CommentController extends Controller
 {
     // Validate the form data
     $validatedData = $request->validate([
-        'user' => 'required|string',
+        'user_id' => 'required|integer',
         'message' => 'required|string',
         
     ]);
@@ -71,7 +71,7 @@ class CommentController extends Controller
 public function update(Request $request, Comment $comment)
 {
     $validatedData = $request->validate([
-        'user' => 'required|string',
+        'user_id' => 'required|integer',
         'message' => 'required|string',
        
     ]);

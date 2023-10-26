@@ -85,7 +85,7 @@ function displayStars($rating) {
                         </a>
                       </td>
                     </tr>
-                    @endforeach
+             @foreach($comments as $comment)
 
                   </tbody>
                 </table>

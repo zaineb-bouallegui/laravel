@@ -18,8 +18,9 @@ class CommentFactory extends Factory
     {
         return [
             //
-            'user_id' => $this->faker->user(),
+            'user_id' => $this->faker->numberBetween(1, 10), // Remplacez 1 et 10 par les ID réels de vos utilisateurs
             'message' => $this->faker->paragraph,
+
         ];
     }
 }
