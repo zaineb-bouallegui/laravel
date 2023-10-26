@@ -73,6 +73,7 @@
                     <p class="text-sm font-weight-bold mb-0">
                         @foreach($location->photos as $photo)
                            <li>{{ $photo->id }}:{{ $photo->title }}</li>
+                           <img src="{{ asset('storage/' . $photo->url) }}" alt="Photo" width="100">
                         @endforeach
                     </p>
                 </td>
@@ -121,59 +122,128 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('locations.store') }}" method="POST" enctype="multipart/form-data" id="location-form">
-                @csrf
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Address</label>
-                            <input type="text" class="form-control" name="address">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Latitude</label>
-                            <input type="text" class="form-control" name="latitude">
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">Longitude</label>
-                            <input type="text" class="form-control" name="longitude">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group input-group-outline">
-                            <label class="form-label">City</label>
-                            <input type="text" class="form-control" name="city">
-                        </div>
-                    </div>
-                   
-                </div>
-                <div class="row mb-3">
-                    <div class="input-group input-group-outline">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" rows="5" name="description"></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-icon btn-3 btn-primary align-item-center" id="add-location-button">
-                    <span class="btn-inner--icon"><i class="material-icons">play_arrow</i></span>
-                    <span class="btn-inner--text">Add location</span>
-                </button>
-            </form>
-        </div>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
+    @endif
+
+    <form action="{{ route('locations.store') }}" method="POST" enctype="multipart/form-data" id="location-form">
+        @csrf
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="input-group input-group-outline">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name">
+                    <div class="error-feedback" id="name-error"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group input-group-outline">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" name="address" id="address">
+                    <div class="error-feedback" id="address-error"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group input-group-outline">
+                    <label class="form-label">Latitude</label>
+                    <input type="text" class="form-control" name="latitude" id="latitude">
+                    <div class="error-feedback" id="latitude-error"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="input-group input-group-outline">
+                    <label class="form-label">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" id="longitude">
+                    <div class="error-feedback" id="longitude-error"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group input-group-outline">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-control" name="city" id="city">
+                    <div class="error-feedback" id="city-error"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group input-group-outline">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="5" name="description" id="description"></textarea>
+                <div class="error-feedback" id="description-error"></div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-icon btn-3 btn-primary align-item-center" id="add-location-button">
+            <span class="btn-inner--icon"><i class="material-icons">play_arrow</i></span>
+            <span class="btn-inner--text">Add location</span>
+        </button>
+    </form>
 </div>
 
-</form>
+<script>
+    // Add an event listener for input fields to perform real-time validation
+    const form = document.getElementById('location-form');
+
+    form.addEventListener('input', function (event) {
+        if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+            const inputField = event.target;
+            const fieldName = inputField.name;
+            const errorFeedback = document.getElementById(`${fieldName}-error`);
+            let errorMessage = '';
+
+            // Custom validation logic based on field name
+            if (fieldName === 'name'  || fieldName === 'address' || fieldName === 'city') {
+                // Check if the input contains only digits
+                if (/^\d+$/.test(inputField.value)) {
+                    errorMessage = 'Should not be a number';
+                }
+                else
+            if(inputField.value.length >= 50)
+            {
+                errorMessage = 'No more than 50 caractere';
+            }
+            }
+
+
+            if (fieldName === 'description') {
+                // Check if the input contains only digits
+                if (/^\d+$/.test(inputField.value)) {
+                    errorMessage = 'Should not be a number';
+                }
+             
+          
+            }
+            
+
+            if (fieldName === 'longitude' || fieldName === 'latitude') {
+                // Check if the input contains only digits
+                if (!/^\d+$/.test(inputField.value)) {
+                    errorMessage = 'Should only be a number';
+                }
+            else
+            if(inputField.value.length >= 10)
+            {
+                errorMessage = 'No more than 50 caractere';
+            }
+            }
+            
+           
+            // Example: Check if the input is empty
+            if (inputField.value.trim() === '') {
+                errorMessage = 'This field is required';
+            }
+
+            // Update the errorFeedback
+            errorFeedback.textContent = errorMessage;
+        }
+    });
+</script>
+
+
+
  
        
 <script>

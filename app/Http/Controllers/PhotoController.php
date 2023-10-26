@@ -13,7 +13,7 @@ class PhotoController extends Controller
 
     public function index()
     {
-        $photos = Photo::with('location')->get(); // Assuming you have a 'location' relationship in your Photo model
+        $photos = Photo::with('location')->get(); 
         $locations = Location::all();
         return view('admin.photos', ['photos' => $photos],['locations' =>$locations]);
     }
