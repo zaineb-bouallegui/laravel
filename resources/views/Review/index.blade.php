@@ -74,9 +74,9 @@ function displayStars($rating) {
                         <p class="text-xs text-secondary mb-0" style="white-space:normal">{{ $review->created_at }}</p>
                       </td>
                       <td class="align-middle">
-                        <a href="{{ route('Review.edit', $review) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <!-- <a href="{{ route('Review.edit', $review) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           Edit
-                        </a>
+                        </a> -->
                         <a href="{{ route('Review.show', $review) }}" class="text-secondary font-weight-bold text-xs mx-4" data-toggle="tooltip" data-original-title="Edit user">
                           Show
                         </a>
@@ -85,7 +85,7 @@ function displayStars($rating) {
                         </a>
                       </td>
                     </tr>
-             @foreach($comments as $comment)
+             @endforeach
 
                   </tbody>
                 </table>
