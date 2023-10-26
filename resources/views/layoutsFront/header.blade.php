@@ -13,10 +13,11 @@
         <ul>
             <li><a href="{{('index')}}" class="active">Home</a></li>
             <li><a href="{{('about')}}">About</a></li>
+            <li><a href="/locationsF">Location</a></li>
             <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
                     <li><a href="{{('index')}}">Nature</a></li>
-                    <li><a href="{{('index')}}">People</a></li>
+                    
                     <li><a href="{{('index')}}">Architecture</a></li>
                     <li><a href="{{('index')}}">Animals</a></li>
                     <li><a href="{{('index')}}">Sports</a></li>

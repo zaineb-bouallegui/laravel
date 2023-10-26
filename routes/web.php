@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,22 +83,39 @@ Route::get('/about', function () {
 
 
 
-//BackLocations
+//BackLocationsAymen
 Route::get('/locations', [LocationController::class, 'index'])->name('locations');
 Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
 Route::get('/locations/{location}', [LocationController::class, 'edit'])->name('locations.edit');
 Route::put('/locations/{id}', [LocationController::class, 'update'])->name('locations.update');
-//BackPhotos
+//BackPhotosAymen
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos.index');
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos'); 
 Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
 Route::post('/photos', [PhotoController::class, 'store'])->name('photos.store');
 Route::get('/photos/{photo}', [PhotoController::class, 'edit'])->name('photos.edit');
 Route::put('/photos/{photo}', [PhotoController::class, 'update'])->name('photos.update');
-//FrontLocations
+//FrontLocationsAymen
 Route::get('/locationsF', [LocationController::class, 'indexFront'])->name('locationsF');
 Route::get('/location/{id}', [LocationController::class,'locationDetails'])->name('location.details');
 
 
+//Nadhir
+Route::get('/about', [ReviewController::class, 'indexFront'])->name('about');
 
+Route::get('/reviews', [ReviewController::class, 'index'])->name('Review.index');
+
+Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('Review.show');
+
+
+Route::get('/create', [ReviewController::class, 'create'])->name('Review.create');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('Review.store');
+
+
+Route::get('/reviews/{review}/delete', [ReviewController::class, 'delete'])->name('Review.delete');
+Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('Review.destroy');
+
+Route::get('/about/{review}/edit', [ReviewController::class, 'edit'])->name('Review.edit');
+Route::patch('/about/{review}', [ReviewController::class, 'update'])->name('Review.update');
+//

@@ -72,8 +72,8 @@
                     <!-- Display the ID of the associated photo(s) -->
                     <p class="text-sm font-weight-bold mb-0">
                         @foreach($location->photos as $photo)
-                           <li>{{ $photo->id }}:{{ $photo->title }}</li>
-                           <img src="{{ asset('storage/' . $photo->url) }}" alt="Photo" width="100">
+
+                           <img class="avatar avatar-sm me-3 border-radius-lg" src="{{ asset('storage/' . $photo->url) }}" >
                         @endforeach
                     </p>
                 </td>
