@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArtController;
+use App\Http\Controllers\StyleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource("/style",StyleController::class);
+Route::resource("/art",ArtController::class);
+Route::get('/art-list', [ArtController::class, 'indexFront'])->name('art-list');
+Route::get('/art-detail/{id}', [ArtController::class, 'detailFront'])->name('art-detail');
 Route::get('/register', function () {
     return view('form');
 });
+
+
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -45,9 +53,7 @@ Route::get('/notification', function () {
     return view('admin.notification');
 })->name('notification');
 
-Route::get('/details', function () {
-    return view('front.details');
-})->name('details');
+
 
 Route::get('/index', function () {
     return view('front.index');
