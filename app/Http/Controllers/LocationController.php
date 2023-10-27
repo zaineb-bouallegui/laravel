@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
-
+use App\Models\Comment; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,13 +24,14 @@ public function index()
 public function indexFront()
 {
     $locations = Location::all(); 
-    return view('front.locations', ['locations' => $locations]);
+    $comments = Comment::all();
+    return view('front.locations', ['locations' => $locations ],['comments'=>$comments]);
 }
 
 public function locationDetails($id)
 {
-    $location = Location::find($id);
 
+    $location = Location::with('comments')->find($id);
     if (!$location) {
         return "Location not found";
     }
@@ -95,9 +96,9 @@ public function edit(Location $location)
 public function update(Request $request, $id)
 {
     
-    // $data = $request->except('_token','_method');
+    $data = $request->except('_token','_method');
 
-    Location::where('id', $id)->update($request->all());
+    Location::where('id', $id)->update($data);
 
     return redirect()->route('locations');
 }

@@ -18,4 +18,9 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function location()
+    {
+        return $this->belongsTo(location::class, 'location_id');
+    }
 }

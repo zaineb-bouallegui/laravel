@@ -26,10 +26,10 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Edit Location</div>
+                        <div class="card-header">Edit Art</div>
 
                         <div class="card-body">
-                        <form action="{{ route('locations.update', $location->id) }}" method="POST">
+                        <form action="{{ route('arts.update', $art->id) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -37,7 +37,7 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" name="name" value="{{ $location->name }}" required>
+            <input id="name" type="text" class="form-control" name="name" value="{{ $art->name }}" required>
         </div>
     </div>
 
@@ -45,39 +45,20 @@
         <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
         <div class="col-md-6">
-            <textarea id="description" class="form-control" rows="5" name="description">{{ $location->description }}</textarea>
+        <input type="text" name="description" id="description" value="{{$art->description}}" class="form-control"></br>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="city" class="col-md-4 col-form-label text-md-right">City</label>
+        <label for="longitude" class="col-md-4 col-form-label text-md-right">Style Id</label>
 
         <div class="col-md-6">
-            <input id="city" type="text" class="form-control" name="city" value="{{ $location->city }}" required>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="longitude" class="col-md-4 col-form-label text-md-right">Longitude</label>
-
-        <div class="col-md-6">
-            <input id="longitude" type="text" class="form-control" name="longitude" value="{{ $location->longitude }}" required>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="latitude" class="col-md-4 col-form-label text-md-right">Latitude</label>
-
-        <div class="col-md-6">
-            <input id="latitude" type="text" class="form-control" name="latitude" value="{{ $location->latitude }}" required>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
-
-        <div class="col-md-6">
-            <input id="address" type="text" class="form-control" name="address" value="{{ $location->address }}" required>
+        <select id="style_id" name="style_id" class="form-control">
+        <option value="">Style</option>
+        @foreach ($styles as $style)
+            <option value="{{ $style->id }}">{{ $style->nameStyle }}</option>
+        @endforeach
+    </select>
         </div>
     </div>
 

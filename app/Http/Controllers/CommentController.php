@@ -11,7 +11,7 @@ class CommentController extends Controller
     //
     public function index(){
         $comments = Comment::all();
-        return view('Comment.index',['comments' => $comments]);
+        return view('front.locations',['comments' => $comments]);
     }
 
     public function create(){

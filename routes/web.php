@@ -5,6 +5,8 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ArtController;
+use App\Http\Controllers\StyleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,4 +120,12 @@ Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('
 
 Route::get('/about/{review}/edit', [ReviewController::class, 'edit'])->name('Review.edit');
 Route::patch('/about/{review}', [ReviewController::class, 'update'])->name('Review.update');
+//
+
+//Zainouba Lahlouba
+Route::resource("/style",StyleController::class);
+Route::resource("/art",ArtController::class);
+Route::get('/art-list', [ArtController::class, 'indexFront'])->name('art-list');
+Route::get('/art-detail/{id}', [ArtController::class, 'detailFront'])->name('art-detail');
+Route::put('/art-update/{id}', [ArtController::class, 'update'])->name('arts.update');
 //

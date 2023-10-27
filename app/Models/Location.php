@@ -27,5 +27,8 @@ class Location extends Model
         return $this->hasMany(Photo::class);
     }
     
-
+    public function Comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

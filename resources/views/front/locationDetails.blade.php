@@ -102,6 +102,39 @@
                     </script>
 
 
+<section id="gallery-single" class="gallery-single">
+      <div class="container">
+
+  <div class="row justify-content-between gy-4 mt-4">
+
+    <div class="col-lg-8">
+      <div class="portfolio-description">
+
+
+      @foreach ($location->comments as $comment)
+        <div class="testimonial-item">
+          <p>
+            <i class="bi bi-quote quote-icon-left"></i>
+            {{ $comment->message }}
+          </p>
+          <div>
+            <img src="{{Vite::asset('resources/assets/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
+            <h3>nadhir.benslema@</h3>
+
+          </div>
+        </div>
+        @endforeach
+
+
+
+      </div>
+    </div>
+
+    
+
+  </div>
+  </div>
+</section>
         </section><!-- End Gallery Single Section -->
 
     </main><!-- End #main -->
