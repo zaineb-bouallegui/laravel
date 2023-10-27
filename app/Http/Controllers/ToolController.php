@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tool;
 use App\Models\Stock;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class ToolController extends Controller
@@ -115,6 +117,21 @@ class ToolController extends Controller
         return redirect()->route('Tool.index');
     }
 
+
+
+    public function export_tools_pdf(){
+        $pdf = \App::make('dompdf.wrapper');
+
+        $pdf->getDomPDF()->set_option("enable_php", false);
+
+        $tools = Tool::get();
+        $stocks = Stock::get();
+        $pdf = Pdf::loadView('pdf.tools',[
+            'tools' => $tools,
+            'stocks' => $stocks,
+        ]);
+        return $pdf->download('tools.pdf');
+    }
 
 
 }

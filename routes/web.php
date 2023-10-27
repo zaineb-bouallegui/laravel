@@ -117,5 +117,8 @@ Route::get('/aaa', 'App\Http\Controllers\StripeController@checkout')->name('chec
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
 //////////////////////////////////////////////////////////////////////
+Route::get('/export_tools_pdf', [ToolController::class, 'export_tools_pdf'])->name('export_tools_pdf');
+
+/////////////////////////////////////////////////////////////////////////
 
 

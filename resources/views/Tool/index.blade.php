@@ -132,6 +132,10 @@
     <a href="{{ route('Stock.index') }}">
          <button type="button" class="btn btn-link">Stock Management</button>
     </a>
+    <a href="{{ route('export_tools_pdf') }}">
+         <button type="button" class="btn btn-link">export_tools_pdf</button>
+    </a>
+
 </table>
 
 </div>
