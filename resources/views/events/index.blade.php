@@ -59,37 +59,44 @@
               <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">lieu</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">description</th>
+                    <th class="align-middle text-center font-weight-bolder opacity-7">Numéro</th>
+                                    <th class="align-middle text-center font-weight-bolder opacity-7">nom</th>
+                                    <th class="align-middle text-center font-weight-bolder opacity-7">date</th>
+                                    <th class="align-middle text-center font-weight-bolder opacity-7">lieu</th>
+                                    <th class="align-middle text-center font-weight-bolder opacity-7">description</th>
                                         
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($events as $item)
                                     <tr>
-                                    <td> <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p></td>
-                                    <td>
-                                    <div class="d-flex px-2 py-1">
+                                    <td class="align-middle text-center"> <p class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</p></td>
+                                   
                                     
-                          <div class="d-flex flex-column justify-content-center">
-                                        {{ $item->nom }}</div>
+                                 
+                           
+                                    <td class="align-middle text-center">         
+                                    <p class="text-secondary text-xs font-weight-bold">
+                                        {{ $item->nom }}</p>
                         </div>
                       </td>
            
-                                        <td class="align-middle text-center"> <span class="text-secondary text-xs font-weight-bold">{{ $item->date }}</span></td>
-                                        <td> <p class="text-xs font-weight-bold mb-0">{{ $item->lieu }}</p></td>
-                                        <td> <p class="text-xs font-weight-bold mb-0">{{ $item->description }}</p></td>
+                                        <td class="align-middle text-center"> <p class="text-secondary text-xs font-weight-bold">{{ $item->date }}</p></td>
+                                        <td class="align-middle text-center"> <p class="text-secondary text-xs font-weight-bold">{{ $item->lieu }}</p></td>
+                                        <td class="align-middle text-center"> <p class="text-secondary text-xs font-weight-bold">{{ $item->description }}</p></td>
                                       
-  
+
                                         <td class="align-middle">
-    <a href="{{ url('/event/' . $item->id) }}" data-original-title="View Event" class="text-pink font-weight-bold text-xs" data-toggle="tooltip">Voir</a>
+    <a href="{{ url('/event/' . $item->id) }}" data-original-title="View Event" class="text font-weight-bold text-xs" data-toggle="tooltip">
+        <i class="fa fa-eye" style="font-size: 15px;"></i> <!-- Font Awesome show icon -->
+    </a>
 </td>
 <td class="align-middle">
-    <a href="{{ url('/event/' . $item->id . '/edit') }}" data-original-title="Edit Event" class="text-blue font-weight-bold text-xs" data-toggle="tooltip">Modifier</a>
+    <a href="{{ url('/event/' . $item->id . '/edit') }}" data-original-title="Edit Event" class="text-blue font-weight-bold text-xs" data-toggle="tooltip">
+        <i class="fa fa-pencil" style="font-size: 15px;"></i> <!-- Adjust the font-size as needed -->
+    </a>
 </td>
+
 
   
                                             <td class="align-middle"> <form method="POST" action="{{ url('/event' . '/' . $item->id) }}" accept-charset="UTF-8" data-original-title="Delete Event"class="text-secondary font-weight-bold text-xs"data-toggle="tooltip">
@@ -97,9 +104,12 @@
                                                 {{ csrf_field() }}
                                          
 
-<button type="submit" onclick="return confirm('Confirmer la suppression?')" class="red-button">Supprimer</button>
+                                                <button type="submit" onclick="return confirm('Confirmer la suppression?')" class="icon-button red-button">
+  <i class="fa fa-trash"></i>
+</button>
                                             </form>
                                         </td>
+                                        
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -113,15 +123,16 @@
     </div></div>
 @endsection
 <style>
-  .red-button {
-    background-color: red;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-
-  }
+  
+  .icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px; /* Adjust the size as needed */
+  color: #ff0000; /* Adjust the color as needed */
+  padding: 0;
+  margin: 0;
+}
   .text-pink {
         color: pink;
     }

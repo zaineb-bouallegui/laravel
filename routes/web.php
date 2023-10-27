@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
-
+use App\Http\Controllers\ParticipationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,82 +11,40 @@ use App\Http\Controllers\EventController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
 Route::resource("event",EventController::class);
 
-
+Route::get('/event-list', [EventController::class, 'indexFront'])->name('event-list');
+Route::get('/indexBack', [ParticipationController::class, 'indexBack'])->name('index');
+Route::resource("participation",ParticipationController::class);
+Route::get('/events/filter', 'EventController@filterByLocation')->name('events.filter');
+Route::get('/participations/export', [ParticipationController::class,'exportToCSV'])->name('participations.export');
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function () {
-    return view('form');
-});
-
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->name('admin');
-
-Route::get('/tables', function () {
-    return view('admin.tables');
-})->name('tables');
-
-Route::get('/profile', function () {
-    return view('admin.profile');
-})->name('profile');
-
-Route::get('/signin', function () {
-    return view('admin.signin');
-})->name('signin');
-
-Route::get('/signup', function () {
-    return view('admin.signup');
-})->name('signup');
-
-Route::get('/notification', function () {
-    return view('admin.notification');
-})->name('notification');
-
-Route::get('/details', function () {
-    return view('front.details');
-})->name('details');
-
-Route::get('/index', function () {
-    return view('front.index');
-})->name('index');
-
-
-Route::get('/services', function () {
-    return view('front.services');
-})->name('services');
-
-Route::get('/sample', function () {
-    return view('front.sample');
-})->name('sample');
+Route::get('/about', function () {
+    return view('front.about');
+})->name('about');
 
 Route::get('/contact', function () {
     return view('front.contact');
 })->name('contact');
 
-Route::get('/login', function () {
-    return view('front.login');
-})->name('login');
 
-Route::get('/register', function () {
-    return view('front.register');
-})->name('register');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/about', function () {
-    return view('front.about');
-})->name('about');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-
-
-
+require __DIR__.'/auth.php';

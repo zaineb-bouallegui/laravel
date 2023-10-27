@@ -60,12 +60,24 @@
         {!! csrf_field() !!}
         <label>Nom</label></br>
         <input type="text" name="nom" id="nom" class="form-control"></br>
+        @error('nom')
+    <div class="alert alert-danger" style="width: 20;">{{ $message }}</div>
+    @enderror
         <label>Date</label></br>
         <input type="date" name="date" id="date" class="form-control"></br>
+        @error('date')
+    <div class="alert alert-danger" style="width: 20;">{{ $message }}</div>
+    @enderror
         <label>Lieu</label></br>
         <input type="text" name="lieu" id="lieu" class="form-control"></br>
+        @error('lieu')
+    <div class="alert alert-danger" style="width: 20;">{{ $message }}</div>
+    @enderror
         <label>Description</label></br>
         <input type="text" name="description" id="description" class="form-control"></br>
+        @error('description')
+    <div class="alert alert-danger" style="width: 20;">{{ $message }}</div>
+    @enderror
         <input type="submit" value="Enregistrer" class="btn btn-dark" class="btn btn-success"></br>
     </form>
     

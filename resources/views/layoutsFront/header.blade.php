@@ -31,6 +31,7 @@
                 </ul>
             </li>
             <li><a href="{{('services')}}">Services</a></li>
+            <li><a href="{{('event-list')}}">Evénement</a></li>
             <li><a href="{{('contact')}}">Contact</a></li>
 
             <li><a href="{{('login')}}">Login</a></li>

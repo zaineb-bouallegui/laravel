@@ -37,9 +37,23 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $input=$request->all();
-        Event::create($input);
-        return redirect ('event')->with('flash_message','Evenement ajouté avec succés');
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:30',
+            'date' => 'required|date',
+            'lieu' => 'required|string',
+            'description' => 'required|string',
+          
+        ],[
+            'required' => 'Le champ :attribute est requis.',
+            'string' => 'Le champ :attribute doit être une chaîne de caractères.',
+            'max' => 'Le champ :attribute ne peut pas dépasser 30 caractères .',
+            'min' => 'Le champ :attribute ne peut pas etre moins que 3 caractères.',
+           
+        ]);
+    
+        Event::create($validatedData);
+    
+        return redirect('event')->with('flash_message', 'Événement ajouté avec succès');
     }
 
     /**
@@ -53,6 +67,7 @@ class EventController extends Controller
         $event=Event::find($id);
         return view('events.show')->with('events',$event);
     }
+   
 
     /**
      * Show the form for editing the specified resource.
@@ -90,6 +105,24 @@ class EventController extends Controller
     public function destroy($id)
     {
        Event::destroy($id);
-       return redirect ('event')->with('flash_message','Evenement supprimé');
+       return redirect ('event')->with('flash_message','L\'événement a été supprimé avec succès.');
     }
+
+
+
+     ////////Front
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFront()
+    {
+        $events=Event::all();
+        return view('front.event-list')->with('events',$events);
+
+    }
+
+   
+    
 }
