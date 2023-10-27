@@ -35,6 +35,11 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!--  Navbar -->
         @include('layouts.nav')
+        @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
         <div class="row">
         <div class="col-12">
           <div class="card my-4">
@@ -72,7 +77,7 @@
                     <!-- Display the ID of the associated photo(s) -->
                     <p class="text-sm font-weight-bold mb-0">
                         @foreach($location->photos as $photo)
-
+                          
                            <img class="avatar avatar-sm me-3 border-radius-lg" src="{{ asset('storage/' . $photo->url) }}" >
                         @endforeach
                     </p>
@@ -122,11 +127,7 @@
             </div>
         </div>
         <div class="card-body">
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
+   
 
     <form action="{{ route('locations.store') }}" method="POST" enctype="multipart/form-data" id="location-form">
         @csrf

@@ -7,6 +7,12 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ArtController;
 use App\Http\Controllers\StyleController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ParticipationController;
+use App\Http\Controllers\ProduitsController;
+use App\Http\Controllers\CategoriesController;
+use App\Models\Produit;
+use App\Models\Categorie;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -129,3 +135,29 @@ Route::get('/art-list', [ArtController::class, 'indexFront'])->name('art-list');
 Route::get('/art-detail/{id}', [ArtController::class, 'detailFront'])->name('art-detail');
 Route::put('/art-update/{id}', [ArtController::class, 'update'])->name('arts.update');
 //
+
+//Ameni
+Route::resource("event",EventController::class);
+Route::get('/event-list', [EventController::class, 'indexFront'])->name('event-list');
+Route::get('/indexBack', [ParticipationController::class, 'indexBack'])->name('index');
+Route::resource("participation",ParticipationController::class);
+Route::get('/events/filter', 'EventController@filterByLocation')->name('events.filter');
+Route::get('/participations/export', [ParticipationController::class,'exportToCSV'])->name('participations.export');
+//
+
+//Nour
+Route::resource('/admin/produit', ProduitsController::class);
+
+Route::get('/front/produit', function () {
+    $produits = Produit::all();
+    return view('front.produit.index', compact('produits'));
+})->name('front.produit.index');
+
+ Route::get('front/produit/details/{id}', function ($id) {
+    $produit = Produit::find($id);
+    return view('front.produit.details', compact('produit'));
+})->name('front.produit.details'); 
+
+Route::get('/generatepdf', [ProduitsController::class,'generatePdf'])->name('generatepdf');
+
+Route::resource('/admin/categorie', CategoriesController::class);
