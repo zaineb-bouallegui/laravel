@@ -1,7 +1,9 @@
 <?php
-
+use App\Models\Produit;
+use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitsController;
+use App\Http\Controllers\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,9 +81,20 @@ Route::get('/about', function () {
 })->name('about');
 
 
-Route::resource('admin/produit', ProduitsController::class)->except(['show']);
-Route::delete('/admin/produit/{id}', 'ProduitsController@destroy')->name('produit.destroy');
-Route::get('/admin/produit/{id}/edit', 'ProduitsController@edit')->name('produit.edit');
+Route::resource('/admin/produit', ProduitsController::class);
 
+Route::get('/front/produit', function () {
+    $produits = produit::all();
+    return view('front.produit.index', compact('produits'));
+})->name('front.produit.index');
+
+ Route::get('front/produit/details/{id}', function ($id) {
+    $produit = Produit::find($id);
+    return view('front.produit.details', compact('produit'));
+})->name('front.produit.details'); 
+
+Route::get('/generatepdf', [ProduitsController::class,'generatePdf'])->name('generatepdf');
+
+Route::resource('/admin/categorie', CategoriesController::class);
 
 

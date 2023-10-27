@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,96 +43,43 @@
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Produits Artisanaux</h6>
+                <h6 class="text-white text-capitalize ps-3">Catégorie Des Produits Artisanaux</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-  <div>
-    <a href="{{ url('admin/produit/create') }}" class="btn btn-outline-success">Ajouter</a>
-  </div>
-  <div class="filter-form">
-    <form method="GET" action="{{ route('produit.index') }}" class="form-inline">
-      <div class="input-group">
-        <select name="categorie" id="categorie" class="form-select">
-          <option value="">Filtrer par catégorie</option>
-          @foreach ($categories as $categorie)
-            <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
-          @endforeach
-        </select>
-        <button type="submit" class="btn btn-outline-primary">Filtrer</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="mb-3">
-    <a href="{{ route('generatepdf') }}" class="btn btn-outline-primary">
-        <i class="fas fa-file-pdf"></i> Télécharger en PDF
-    </a>
-</div>
-
-
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Produit</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nom</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">prix</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">quantite</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">categorie</th>
-
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  @foreach($produits as $produit)
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                        <div>
-                            <img src="{{ asset('images/' . $produit->image) }}" class="avatar avatar-sm me-5 border-radius-lg" alt="{{ $produit->nom }}">
-                        </div>
-                        </div>
-                      </td>
-                      <td>
-                <h6 class="mb-0 text-sm">{{ $produit->nom }}</h6>
-            </td>
-            <td class="align-middle text-center text-sm">
-                {{ $produit->description }}
-            </td>
-            <td class="align-middle text-center">
-                {{ $produit->prix }}
-            </td>
-            <td class="align-middle text-center">
-                {{ $produit->quantite }}
-            </td>
-            <td class="align-middle text-center">
-                {{ $produit->categorie->nom }}
-            </td>
-                      <td class="align-middle  d-flex justify-content-end">
-                      <a href="{{ route('produit.edit', $produit->id) }}" class="btn btn-link btn-sm" data-toggle="tooltip" data-placement="top" title="Modifier">
-        Modifier
-    </a>
-                         <form method="POST" action="{{ route('produit.destroy', $produit->id) }}" style="display: inline;">
+              <div class="table-responsive p-0">
+              <div class="container">
+                  <div class="row justify-content-center">
+                     <div class="col-xl-6 col-lg-7 col-md-9 col-sm-12">
+                     <form method="POST" action="{{ $editMode ? route('categorie.update', $categorie->id) : route('categorie.store') }}" enctype="multipart/form-data" role="form" class="text-start">
     @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-link btn-sm" data-toggle="tooltip" data-placement="top" title="Supprimer">
-        Supprimer
-    </button>
+    @if ($editMode)
+        @method('PUT')
+    @endif
+
+    <div class="input-group input-group-outline my-3">
+        <input type="text" id="nom" name="nom"placeholder="Nom" class="form-control" value="{{ $editMode ? $categorie->nom : '' }}">
+    </div>
+    @error('nom')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    
+    <div class="input-group input-group-outline my-3">
+        <input type="text" id="description" name="description" placeholder="Description" class="form-control" value="{{ $editMode ? $categorie->description : '' }}">
+    </div>
+    @error('description')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    <div class="text-center">
+        <button type="submit" class="btn bg-gradient-primary mb-2 text-sm mx-auto">{{ $editMode ? 'Modifier' : 'Ajouter' }}</button>
+    </div>
 </form>
 
-<a href="{{ route('produit.show', $produit->id) }}" class="btn btn-link btn-sm" data-toggle="tooltip" data-placement="top" title="Détail">
-    Détail
-</a>
+        </div>
+    </div>
+</div>
 
-
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                
               </div>
             </div>
           </div>

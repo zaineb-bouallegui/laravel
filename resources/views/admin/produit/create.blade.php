@@ -50,33 +50,60 @@
               <div class="table-responsive p-0">
               <div class="container">
                   <div class="row justify-content-center">
-                     <div class="col-xl-6 col-lg-7 col-md-9 col-sm-12">
+                     <div class="col-xl-6 col-lg-7 col-md-9 col-sm-12 ">
                      <form method="POST" action="{{ $editMode ? route('produit.update', $produit->id) : route('produit.store') }}" enctype="multipart/form-data" role="form" class="text-start">
     @csrf
-
     @if ($editMode)
         @method('PUT')
     @endif
 
     <div class="input-group input-group-outline my-3">
-        <label class="form-label">Nom</label>
-        <input type="text" id="nom" name="nom" class="form-control" value="{{ $editMode ? $produit->nom : '' }}">
+        <input type="text" id="nom"  placeholder="Nom"name="nom" class="form-control" value="{{ $editMode ? $produit->nom : '' }}">
     </div>
-    
+    @error('nom')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
     <div class="input-group input-group-outline my-3">
-        <label class="form-label">Description</label>
-        <input type="text" id="description" name="description" class="form-control" value="{{ $editMode ? $produit->description : '' }}">
+        <input type="text" id="description" placeholder="Description" name="description" class="form-control" value="{{ $editMode ? $produit->description : '' }}">
     </div>
+    @error('description')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    <div class="input-group input-group-outline my-3">
+        <input type="text" id="prix" name="prix" placeholder="Prix" class="form-control" value="{{ $editMode ? $produit->prix : '' }}">
+    </div>
+    @error('prix')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    <div class="input-group input-group-outline my-3">
+        <input type="number" id="quantite" placeholder="Quantite" name="quantite" min="0" class="form-control" value="{{ $editMode ? $produit->quantite : '' }}">
+    </div>
+    @error('quantite')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    <div class="input-group input-group-outline my-3">
+        <input type="file" id="image"  name="image" class="form-control">
+    </div>
+    @error('image')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    <div class="input-group input-group-outline my-3">
+    <select id="category_id" name="category_id" class="form-control">
+        <option value="" disabled selected>Choisissez une catégorie</option>
+        @if ($editMode)
+            <option value="{{ $produit->category_id }}" selected>{{ $produit->categorie->nom }}</option>
+        @endif
+        @foreach ($categories as $categorie)
+            <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+        @endforeach
+    </select>
+</div>
+@error('category_id')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
-    <div class="input-group input-group-outline my-3">
-        <label class="form-label">Prix</label>
-        <input type="text" id="prix" name="prix" class="form-control" value="{{ $editMode ? $produit->prix : '' }}">
-    </div>
+</div>
 
-    <div class="input-group input-group-outline my-3">
-        <label class="form-label">Image</label>
-        <input type="file" id="image" name="image" class="form-control">
-    </div>
 
     <div class="text-center">
         <button type="submit" class="btn bg-gradient-primary mb-2 text-sm mx-auto">{{ $editMode ? 'Modifier' : 'Ajouter' }}</button>

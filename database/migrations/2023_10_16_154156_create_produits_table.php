@@ -19,7 +19,10 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('prix', 10, 2);
             $table->string('image')->nullable();
+            $table->integer('quantite')->default(0);
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
