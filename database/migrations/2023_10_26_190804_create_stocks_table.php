@@ -13,27 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-
-
-        Schema::create('tools', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->text('description');
-            $table->decimal('prix', 8, 2);
-            $table->integer('stock');
-            $table->string('categorie');
+            $table->string('name'); // Colonne pour le nom du stock
+            $table->integer('quantity'); // Colonne pour la quantité en stock
+            $table->string('location');
             $table->timestamps();
         });
-        
     }
 
     /**
      * Reverse the migrations.
      *
-     * @return void 
+     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('tools');
+        Schema::dropIfExists('stocks');
     }
 };

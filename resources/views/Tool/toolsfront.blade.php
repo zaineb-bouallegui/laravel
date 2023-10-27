@@ -35,37 +35,35 @@
 
         <div class="row gy-4">
 
-          <div class="col-xl-3 col-md-6 d-flex">
-            <div class="service-item position-relative">
+          @foreach($tools as $tool)
+
+
+          <div class=" col-md-6 d-flex">
+            <div  class="service-item position-relative">
               <i class="bi bi-activity"></i>
-              <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              <img src="{{ asset('storage/' . $tool->image) }}" alt="Tool Image" width="300" height="300" >
+              <h1><a href="" class="stretched-link">{{$tool->nom}}</a></h1>
+              <p>Description:{{$tool->description}}</p>
+              <h2>Category{{$tool->categorie}}</h2>
+              <h2>Price{{$tool->prix}}</h2>
+                    @foreach($stocks as $stock)
+                   @if($stock->id == $tool->stock_id)
+            <h2  class="text-secondary text-xs font-weight-bold">{{ $stock->location }}</h2>
+                      @endif
+                     @endforeach
+
+ 
             </div>
+            <div><form action="/session" method="POST">
+                     <input type="hidden" name="_token" value="{{csrf_token()}}">
+                     <button type="submit" id="checkout-live-button">Buy</button>
+                      </form></div>
           </div><!-- End Service Item -->
 
-          <div class="col-xl-3 col-md-6 d-flex">
-            <div class="service-item position-relative">
-              <i class="bi bi-bounding-box-circles"></i>
-              <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-            </div>
-          </div><!-- End Service Item -->
+                  @endforeach
 
-          <div class="col-xl-3 col-md-6 d-flex">
-            <div class="service-item position-relative">
-              <i class="bi bi-calendar4-week"></i>
-              <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div><!-- End Service Item -->
 
-          <div class="col-xl-3 col-md-6 d-flex">
-            <div class="service-item position-relative">
-              <i class="bi bi-broadcast"></i>
-              <h4><a href="" class="stretched-link">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div><!-- End Service Item -->
+
 
         </div>
 

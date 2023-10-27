@@ -4,19 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tool;
+use App\Models\Stock;
+
 
 class ToolController extends Controller
 {
+
+
+    
+
+    public function index2()
+    {
+        $tools = Tool::all();
+        $stocks = Stock::all();
+
+   
+        return view('Tool.toolsfront', [
+        'tools' => $tools,
+        'stocks' => $stocks,
+    ]);
+
+    }
+
     public function index()
     {
         $tools = Tool::all();
-        return view('Tool.index', ['tools' => $tools]);
+        $stocks = Stock::all();
+   
+           return view('Tool.index', [
+        'tools' => $tools,
+        'stocks' => $stocks,
+    ]);
+
     }
 
     // Method to display the creation form
     public function create()    
-    {
-        return view('Tool.create');
+    {        $stocks = Stock::all();
+
+
+        return view('Tool.create',['stocks' => $stocks]);
     }
 
     // Method to handle the submission of the creation form
@@ -27,14 +54,23 @@ class ToolController extends Controller
             'nom' => 'required|string',
             'description' => 'required|string',
             'prix' => 'required|numeric',
-            'stock' => 'required|integer',
             'categorie' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock_id' => 'required|exists:stocks,id',
         ]);
 
+
+        // Store the image in the 'public' disk in the 'images' directory
+        $imagePath = $request->file('image')->store('images', 'public');
         // Create a new Tool record
+        
         $tool = new Tool($validatedData);
+        $tool->image = $imagePath;
 
         // Save the record to the database
+        $tool->save();
+            // Associate the Tool with the specified Stock
+        $tool->stock_id = $validatedData['stock_id'];
         $tool->save();
 
         // Redirect the user to a confirmation or listing page
@@ -69,8 +105,8 @@ class ToolController extends Controller
             'nom' => 'required|string',
             'description' => 'required|string',
             'prix' => 'required|numeric',
-            'stock' => 'required|integer',
             'categorie' => 'required|string',
+            
         ]);
     
         $tool->update($validatedData);

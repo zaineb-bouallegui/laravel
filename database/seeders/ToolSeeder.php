@@ -14,6 +14,10 @@ class ToolSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Tool::factory(10)->create();
+        $faker = FakerFactory::create();
+
+        \App\Models\Tool::factory(10)->create([
+            'image' => $faker->imageUrl(), // Add this line to generate random image URLs
+        ]);
     }
 }

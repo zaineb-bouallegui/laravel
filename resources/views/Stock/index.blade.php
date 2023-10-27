@@ -49,7 +49,7 @@
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Tools table</h6>
+                <h6 class="text-white text-capitalize ps-3">stocks table</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -63,18 +63,17 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
 
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stock</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Location</th>
+
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
 
 
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
-                  @foreach($tools as $tool)
+                  @foreach($stocks as $stock)
 
 
 <tbody>
@@ -82,42 +81,26 @@
   <tr>
     <td>
       <div class="d-flex px-2 py-1">
-        <div>
-          <img src="{{ asset('storage/' . $tool->image) }}" alt="Tool Image" class="avatar avatar-sm me-3 border-radius-lg">
-        </div>
         <div class="d-flex flex-column justify-content-center">
-          <h6 class="mb-0 text-sm">{{ $tool->id }}</h6>
+          <h6 class="mb-0 text-sm">{{ $stock->id }}</h6>
         </div>
       </div>
     </td>
     <td>
-      <p class="text-xs font-weight-bold mb-0">{{ $tool->nom }}</p>
+      <p class="text-xs font-weight-bold mb-0">{{ $stock->name }}</p>
     </td>
     <td class="align-middle text-center text-sm">
-      <span class="badge badge-sm bg-gradient-secondary">{{ $tool->description }}</span>
+      <span class="badge badge-sm bg-gradient-secondary">{{ $stock->quantity }}</span>
     </td>
     <td class="align-middle text-center">
-      <span class="text-secondary text-xs font-weight-bold">{{ $tool->prix}}</span>
+      <span class="text-secondary text-xs font-weight-bold">{{ $stock->location}}</span>
     </td>
-
-     </td>
-     <td class="align-middle text-center">
-    @foreach($stocks as $stock)
-        @if($stock->id == $tool->stock_id)
-            <span class="text-secondary text-xs font-weight-bold">{{ $stock->quantity }}</span>
-        @endif
-    @endforeach
-</td>
-
-
-    <td class="align-middle text-center">
-      <span class="text-secondary text-xs font-weight-bold">{{ $tool->categorie}}</span>
-    </td>
+    
     <td>
-     <a href="{{ route('tools.delete', $tool) }}">
+     <a href="{{ route('stocks.delete', $stock) }}">
          <button type="button" class="btn btn-link">Delete</button>
     </a>
-                    <a href="{{ route('tools.edit', $tool) }}">
+                    <a href="{{ route('stocks.edit', $stock) }}">
                         <button type="button" class="btn btn-link">Update</button></a>
 
     </td>
@@ -126,11 +109,8 @@
   @endforeach
 
 </tbody>
-    <a href="{{ route('tools.create') }}">
-         <button type="button" class="btn btn-link">Add New Tool</button>
-    </a>
-    <a href="{{ route('Stock.index') }}">
-         <button type="button" class="btn btn-link">Stock Management</button>
+    <a href="{{ route('stocks.create') }}">
+         <button type="button" class="btn btn-link">Add New stock</button>
     </a>
 </table>
 

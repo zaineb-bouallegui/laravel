@@ -35,23 +35,20 @@
   <table>
   <tr>
   <td>
-    <h1>Delete Tool</h1>
-    <p>Are you sure you want to delete this tool?</p>
-    <p><strong>Tool ID:</strong> {{ $tool->id }}</p>
-    <p><strong>Name:</strong> {{ $tool->nom }}</p>
-    <p><strong>Description:</strong> {{ $tool->description }}</p>
-    <p><strong>Price:</strong> {{ $tool->prix }}</p>
-    <p><strong>Stock:</strong> {{ $tool->stock }}</p>
-    <p><strong>Category:</strong> {{ $tool->categorie }}</p>
+    <h1>Delete stock</h1>
+    <p>Are you sure you want to delete this stock?</p>
+    <p><strong>stock ID:</strong> {{ $stock->id }}</p>
+    <p><strong>Name:</strong> {{ $stock->name }}</p>
+    <p><strong>Description:</strong> {{ $stock->quantity }}</p>
+    <p><strong>Price:</strong> {{ $stock->location }}</p>
+
     </td>
-    <td>
-    <img src="{{ asset('storage/' . $tool->image) }}" alt="Tool Image" width="300" height="300" >
-</td>
+
 </tr>
 </table>
 
 
-    <form method="POST" action="{{ route('tools.destroy', $tool) }}">
+    <form method="POST" action="{{ route('stocks.destroy', $stock) }}">
         @csrf
         @method('DELETE')
 

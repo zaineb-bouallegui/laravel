@@ -29,59 +29,53 @@
 </head>
 
 <body>
-    <h1>Créer un nouvel art matériel</h1>
+    <h1>UPDATE</h1>
     
-
-    
-    <form method="POST" action="{{ route('tools.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('stocks.update', $stock) }}">
         @csrf <!-- CSRF Token -->
-        
+        @method('PATCH')
+    
         <!-- Champ pour le nom -->
         <div class="input-group input-group-outline mb-3">
-                      <label class="form-label" for="nom">nom</label>
-                      <input type="text" class="form-control" name="nom" id="nom" required>
+                      <label     for="name">Name</label>
+                      <input type="text" class="form-control" value="{{$stock->name}}" name="name" id="name" >
         </div>
         
-        <!-- Champ pour la description -->
-        <div class="input-group input-group-outline mb-3">
-                      <label class="form-label" for="description" >Description</label>
-                      <textarea name="description" id="description"  class="form-control" required></textarea>
-        </div>
         
-        <!-- Champ pour le prix -->
+        <!-- Champ pour le quantity -->
         <div class="input-group input-group-outline mb-3">
-                      <label class="form-label" for="prix">Price</label>
-                      <input type="number" name="prix" id="prix" step="0.01" class="form-control" required>
+                      <label  for="quantity">Quantity</label>
+                      <input type="number" name="quantity" id="quantity" value="{{$stock->quantity}}" class="form-control" >
                     </div>
         
-        <!-- Champ pour le stock -->
-        <div class="input-group input-group-outline mb-3">
-        <label for="stock_id">Select Stock:</label>
-           <select id="stock_id" name="stock_id" required>
-        @foreach($stocks as $stock)
-            <option value="{{ $stock->id }}">{{ $stock->location }}</option>
-            @endforeach
 
-    </select>
-
-                    </div>
         <!-- Champ pour la catégorie -->
         <div class="input-group input-group-outline mb-3">
-                      <label class="form-label" for="categorie">Category</label>
-                      <input type="text" name="categorie" id="categorie"  class="form-control" required>
+                      <label  for="location">Location</label>
+                      <input type="text" name="location" id="location" value="{{$stock->location}}"  class="form-control" >
                     </div>
 
 
-                    <div class="input-group input-group-outline mb-3">
-                    <label class="form-label" for="image">Image</label>
-                      <input type="file" name="image" id="image"  class="form-control" required>
-                    </div>
+
         
         
         <!-- Bouton de soumission -->
         <div class="text-center"> 
-            <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Créer</button>
+            <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Update</button>
         </div>
     </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

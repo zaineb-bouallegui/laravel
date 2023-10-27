@@ -22,6 +22,7 @@ class ToolFactory extends Factory
             'prix' => $faker->randomFloat(2, 5, 100),
             'stock' => $faker->numberBetween(1, 100),
             'categorie' => $faker->word,
+            'image' => $faker->imageUrl(),
         ];
     }
 }
