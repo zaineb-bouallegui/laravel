@@ -13,7 +13,11 @@
 
 <body class="g-sidenav-show bg-gray-200">
     @include('layouts.layout')
-
+    @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @include('layouts.nav')
         <div class="row">
@@ -94,12 +98,18 @@
                                     <div class="input-group input-group-outline">
                                         <label class="form-label">Title</label>
                                         <input type="text" class="form-control" name="title">
+                                        @if($errors->has('title'))
+            <div class="error-feedback text-danger">{{ $errors->first('title') }}</div>
+        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group input-group-outline">
                                         <label class="form-label">Image</label>
                                         <input type="file" class="form-control" name="image" accept="image/*">
+                                        @if($errors->has('image'))
+            <div class="error-feedback text-danger">{{ $errors->first('image') }}</div>
+        @endif
                                     </div>
                                 </div>
                             </div>
@@ -107,6 +117,9 @@
                                 <div class="input-group input-group-outline">
                                     <label class="form-label">Description</label>
                                     <textarea class="form-control" rows="5" name="description"></textarea>
+                                    @if($errors->has('description'))
+            <div class="error-feedback text-danger">{{ $errors->first('description') }}</div>
+        @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -117,7 +130,11 @@
                                     @foreach ($locations as $location)
                                         <option value="{{ $location->id }}">{{ $location->name }}</option>
                                     @endforeach
+                                    
                                 </select>
+                                @if($errors->has('location_id'))
+            <div class="error-feedback text-danger">{{ $errors->first('location_id') }}</div>
+        @endif
                             </div>
     </div>
                             <button type="submit" class="btn btn-icon btn-3 btn-primary align-item-center" id="add-photo-button">

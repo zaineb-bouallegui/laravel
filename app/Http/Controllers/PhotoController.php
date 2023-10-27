@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Photo;
 use App\Models\Location;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PhotoController extends Controller
 {
@@ -20,33 +21,57 @@ class PhotoController extends Controller
     
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'location_id' => 'required|exists:locations,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'title' => 'string|nullable',
-            'description' => 'string|nullable',
-        ]);
+{
+    // Define validation rules
+    $rules = [
+        'location_id' => 'required|exists:locations,id',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'title' => 'required|string',
+        'description' => 'required|string',
+    ];
 
-        $locationId = $request->input('location_id');
+    $messages = [
+        'required' => 'The :attribute field is required.',
+        'exists' => 'The selected :attribute is invalid.',
+        'image' => 'The :attribute must be an image.',
+        'mimes' => 'The :attribute must be a file of type: :values.',
+        'max' => 'The :attribute may not be greater than :max kilobytes.',
+        'string' => 'The :attribute must be a string.',
+    ];
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->storeAs('photos', $imageName, 'public');
+    // Create a validator instance
+    $validator = Validator::make($request->all(), $rules, $messages);
 
-            $photo = new Photo();
-            $photo->location_id = $locationId;
-            $photo->url = 'photos/' . $imageName;
-            $photo->title = $request->input('title');
-            $photo->description = $request->input('description');
-            $photo->save();
-
-            return redirect()->route('photos')->with('success', 'Photo uploaded successfully.');
-        }
-
-        return redirect()->back()->with('error', 'Failed to upload the photo.');
+    // Check if validation fails
+    if ($validator->fails()) {
+        return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    // If validation passes, handle file upload and other operations
+    $locationId = $request->input('location_id');
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->storeAs('photos', $imageName, 'public');
+
+        $photo = new Photo();
+        $photo->location_id = $locationId;
+        $photo->url = 'photos/' . $imageName;
+        $photo->title = $request->input('title');
+        $photo->description = $request->input('description');
+        $photo->save();
+
+        return redirect()->route('photos')->with('success', 'Photo uploaded successfully.');
+    }
+
+    return redirect()->back()->with('error', 'Failed to upload the photo.');
+}
+
+
 
     public function edit(Photo $photo)
     {
@@ -57,13 +82,33 @@ class PhotoController extends Controller
 
     public function update(Request $request, Photo $photo)
     {
-        $request->validate([
-            'title' => 'string|nullable',
-            'description' => 'string|nullable',
+        $rules = [
             'location_id' => 'required|exists:locations,id',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title' => 'required|string',
+            'description' => 'required|string',
+        ];
     
+        $messages = [
+            'required' => 'The :attribute field is required.',
+            'exists' => 'The selected :attribute is invalid.',
+            'image' => 'The :attribute must be an image.',
+            'mimes' => 'The :attribute must be a file of type: :values.',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+            'string' => 'The :attribute must be a string.',
+        ];
+    
+        // Create a validator instance
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         $locationId = $request->input('location_id');
         
         // Check if a new image has been provided

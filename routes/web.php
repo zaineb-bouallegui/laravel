@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PhotoController;
@@ -11,8 +12,39 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ToolController;
+use App\Http\Controllers\StockController;
 use App\Models\Produit;
 use App\Models\Categorie;
+/*
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,13 +56,12 @@ use App\Models\Categorie;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function () {
-    return view('form');
-});
+
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -40,9 +71,7 @@ Route::get('/tables', function () {
     return view('admin.tables');
 })->name('tables');
 
-Route::get('/profile', function () {
-    return view('admin.profile');
-})->name('profile');
+
 
 Route::get('/signin', function () {
     return view('admin.signin');
@@ -77,13 +106,9 @@ Route::get('/contact', function () {
     return view('front.contact');
 })->name('contact');
 
-Route::get('/login', function () {
-    return view('front.login');
-})->name('login');
 
-Route::get('/register', function () {
-    return view('front.register');
-})->name('register');
+
+
 
 Route::get('/about', function () {
     return view('front.about');
@@ -97,6 +122,9 @@ Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
 Route::get('/locations/{location}', [LocationController::class, 'edit'])->name('locations.edit');
 Route::put('/locations/{id}', [LocationController::class, 'update'])->name('locations.update');
+Route::get('/search-location', 'LocationController@searchLocation')->name('search.location');
+Route::get('/exportLocationPdf', [LocationController::class, 'exportLocationPdf'])->name('exportLocationPdf');
+
 //BackPhotosAymen
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos.index');
 Route::get('/photos', [PhotoController::class, 'index'])->name('photos'); 
@@ -161,3 +189,35 @@ Route::get('/front/produit', function () {
 Route::get('/generatepdf', [ProduitsController::class,'generatePdf'])->name('generatepdf');
 
 Route::resource('/admin/categorie', CategoriesController::class);
+//
+
+////////////////////ala-tools////////
+Route::get('/tool/create', [ToolController::class, 'create'])->name('tools.create');
+Route::post('/tool/store', [ToolController::class, 'store'])->name('tools.store');
+Route::get('/tool/index', [ToolController::class, 'index'])->name('Tool.index');
+
+Route::get('/tool/{tool}/delete', [ToolController::class, 'delete'])->name('tools.delete');
+Route::delete('/tools/{tool}', [ToolController::class, 'destroy'])->name('tools.destroy');
+
+
+Route::get('/tool/{tool}/edit', [ToolController::class, 'edit'])->name('tools.edit');
+Route::patch('/toolsUp/{tool}', [ToolController::class, 'update'])->name('tools.update');
+Route::get('/tool/front', [ToolController::class, 'index2'])->name('tool');
+//////////////////////stock ala /////////////////
+Route::get('/stock/create', [StockController::class, 'create'])->name('stocks.create');
+Route::post('/stock/store', [StockController::class, 'store'])->name('stocks.store');
+Route::get('/stock/index', [StockController::class, 'index'])->name('Stock.index');
+
+Route::get('/stock/{stock}/delete', [StockController::class, 'delete'])->name('stocks.delete');
+Route::delete('/stocks/{stock}', [StockController::class, 'destroy'])->name('stocks.destroy');
+
+Route::get('/stock/{stock}/edit', [StockController::class, 'edit'])->name('stocks.edit');
+Route::patch('/stocksUp/{stock}', [StockController::class, 'update'])->name('stocks.update');
+///////////////////stripe ala//////////////////////////////////////
+Route::get('/aaa', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
+Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
+Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
+//////////////////////////////////////////////////////////////////////
+Route::get('/export_tools_pdf', [ToolController::class, 'export_tools_pdf'])->name('export_tools_pdf');
+
+/////////////////////////////////////////////////////////////////////////

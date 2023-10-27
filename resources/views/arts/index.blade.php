@@ -46,13 +46,33 @@
               <a href="{{ url('/art/create') }}" class="btn btn-light btn-sm" title="Ajouter une piece ">
                             Add New
                         </a>
+
+                        <div class="filter-form">
+    <form method="GET" action="{{ route('art.index') }}" class="form-inline">
+      <div class="input-group">
+        <select name="style" id="style" class="form-select">
+          <option value="">Filtrer par style</option>
+          @foreach ($styles as $style)
+            <option value="{{ $style->id }}">{{ $style->nameStyle }}</option>
+          @endforeach
+        </select>
+        <button type="submit" class="btn btn-outline-primary">Filter</button>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
             </div>
             <div class="card-body px-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center justify-content-center mb-0">
                   <thead>
                     <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Id</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Numero</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">image</th>

@@ -33,7 +33,16 @@
 
 <head>
 @include('layoutsFront.head')
+<style>
+    .star {
+        cursor: pointer;
+        font-size: 24px;
+    }
 
+    .selected {
+        color: gold; /* Change the color to highlight the selected stars */
+    }
+</style>
     
 </head>
 
@@ -81,9 +90,16 @@
                             <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="number" name="rating" id="rating" class="form-control" placeholder="rating" required>
+                            <label for="rating">Rating</label>
+                            <div id="star-rating">
+                                <span class="star" data-rating="1">&#9733</span>
+                                <span class="star" data-rating="2">&#9733</span>
+                                <span class="star" data-rating="3">&#9733</span>
+                                <span class="star" data-rating="4">&#9733</span>
+                                <span class="star" data-rating="5">&#9733</span>
+                            </div>
+                            <input type="hidden" name="rating" id="rating" required>
                         </div>
-
                         <div class="my-3">
                             <div class="loading">Loading</div>
                             @if(session('success'))
@@ -109,6 +125,26 @@
 
 </main><!-- End #main -->
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(".star");
+        const ratingInput = document.getElementById("rating");
+
+        stars.forEach((star) => {
+            star.addEventListener("click", function () {
+                const selectedRating = parseInt(this.getAttribute("data-rating"));
+                ratingInput.value = selectedRating;
+                
+                // Update the visual appearance of the stars based on the selected rating
+                stars.forEach((s) => {
+                    const sRating = parseInt(s.getAttribute("data-rating"));
+                    s.classList.toggle("selected", sRating <= selectedRating);
+                });
+            });
+        });
+    });
+</script>
+
 <!-- ======= Footer ======= -->
 @include('layoutsFront.footer')
 
@@ -130,6 +166,7 @@
 
 <!-- Template Main JS File -->
 @vite(['resources/assets/js/main.js'])
+
 
 </body>
 

@@ -48,9 +48,12 @@
         <input type="text" name="description" id="description" value="{{$art->description}}" class="form-control"></br>
         </div>
     </div>
-
+    <div class="input-group input-group-outline my-3">
+        <input type="file" id="image"  name="image" class="form-control">
+    </div>
     <div class="form-group row">
         <label for="longitude" class="col-md-4 col-form-label text-md-right">Style Id</label>
+        
 
         <div class="col-md-6">
         <select id="style_id" name="style_id" class="form-control">

@@ -39,7 +39,11 @@
                                     <div class="col-md-6">
                                         <input id="title" type="text" class="form-control" name="title" value="{{ $photo->title }}"
                                             required autofocus>
+                                            @if($errors->has('title'))
+            <div class="error-feedback text-danger">{{ $errors->first('title') }}</div>
+        @endif
                                     </div>
+                               
                                 </div>
 
                                 <div class="form-group row">
@@ -47,7 +51,11 @@
 
                                     <div class="col-md-6">
                                         <input id="image" type="file" class="form-control" name="image" accept="image/*">
+                                        @if($errors->has('image'))
+            <div class="error-feedback text-danger">{{ $errors->first('image') }}</div>
+        @endif
                                     </div>
+                                    
                                 </div>
 
                                 <div class="form-group row">
@@ -56,6 +64,9 @@
                                     <div class="col-md-6">
                                         <textarea id="description" class="form-control" rows="5"
                                             name="description">{{ $photo->description }}</textarea>
+                                            @if($errors->has('description'))
+            <div class="error-feedback text-danger">{{ $errors->first('description') }}</div>
+        @endif
                                     </div>
                                 </div>
 
@@ -69,6 +80,9 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        @if($errors->has('location_id'))
+            <div class="error-feedback text-danger">{{ $errors->first('location_id') }}</div>
+        @endif
                                     </div>
                                 </div>
 

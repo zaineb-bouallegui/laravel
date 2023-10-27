@@ -52,7 +52,7 @@
                 <div class="row ">
                         <div class="col-lg-6">
                             @if(session('flash_message'))
-                                <div class="alert alert-danger" role="alert">
+                                <div class="alert alert-secondary" role="alert">
                                     <span class="alert-icon text-white"><i class="ni ni-fat-remove"></i></span>
                                     <span class="alert-text text-white">{{ session('flash_message') }}</span>
                                 </div>

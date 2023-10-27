@@ -27,7 +27,12 @@
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
+
+
 </head>
+
+
 
 <body class="g-sidenav-show  bg-gray-200">
     @include('layouts.layout')
@@ -36,240 +41,316 @@
         <!--  Navbar -->
         @include('layouts.nav')
         @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="row">
-        <div class="col-12">
-          <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Location list</h6>
-              </div>
-            </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center justify-content-center mb-0">
-                  <thead>
-                    <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Id</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Photos</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">City</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Address</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Longtitude</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Latitude</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Description</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-        @foreach($locations as $location)
-        <tr>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->id }}</p>
-                      </td>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->name }}</p>
-                      </td>
-                      <td>
-                    <!-- Display the ID of the associated photo(s) -->
-                    <p class="text-sm font-weight-bold mb-0">
-                        @foreach($location->photos as $photo)
-                          
-                           <img class="avatar avatar-sm me-3 border-radius-lg" src="{{ asset('storage/' . $photo->url) }}" >
-                        @endforeach
-                    </p>
-                </td>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->city }}</p>
-                      </td>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->address }}</p>
-                      </td>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->longitude }}</p>
-                      </td>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ $location->latitude }}</p>
-                      </td>
-                      <td>
-    <textarea class="form-control" rows="4">{{ $location->description }}</textarea>
-</td>
-<td>
-    <form action="{{ route('locations.destroy', $location->id) }}" method="POST" style="display: inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-    </form>
-
-    <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-primary btn-sm">Modify</a>
-</td>
-
-        @endforeach
-    </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        <div class="row mb-3">
+    <div class="col-md-6">
+        <div class="input-group">
+            <input type="text" class="form-control" id="search-input" placeholder="Search locations...">
+            <button class="btn btn-primary" id="search-button">Search</button>
+            <a href="{{ route('exportLocationPdf') }}">
+         <button type="button" class="btn btn-link">Export location PDF</button>
+    </a>
         </div>
-      </div>
+    </div>
+</div>
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">Location list</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center justify-content-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Id</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Name</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Photos</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            City</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                                            Address</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                                            Longtitude</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                                            Latitude</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                                            Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($locations as $location)
+                                        <tr>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $location->id }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $location->name }}</p>
+                                            </td>
+                                            <td>
+                                                <!-- Display the ID of the associated photo(s) -->
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    @foreach ($location->photos as $photo)
+                                                        <img class="avatar avatar-sm me-3 border-radius-lg"
+                                                            src="{{ asset('storage/' . $photo->url) }}">
+                                                    @endforeach
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $location->city }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $location->address }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $location->longitude }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $location->latitude }}</p>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" rows="4">{{ $location->description }}</textarea>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('locations.destroy', $location->id) }}"
+                                                    method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+
+                                                <a href="{{ route('locations.edit', $location->id) }}"
+                                                    class="btn btn-primary btn-sm">Modify</a>
+                                            </td>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row mt-4">
-        <div class="col-lg-4 col-md-6 mt-4 mb-4">
-    <div class="card z-index-2">
-        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                    <h6 class="text-white text-capitalize ps-3">Add location</h6>
+    <!-- First Column -->
+    <div class="col-lg-4 col-md-6 mt-4 mb-4">
+        <div class="card z-index-2">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Add location</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
-   
+            <div class="card-body">
 
-    <form action="{{ route('locations.store') }}" method="POST" enctype="multipart/form-data" id="location-form">
-        @csrf
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <div class="input-group input-group-outline">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name" id="name">
-                    <div class="error-feedback" id="name-error"></div>
-                </div>
+
+                        <form action="{{ route('locations.store') }}" method="POST" enctype="multipart/form-data"
+                            id="location-form">
+                            @csrf
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-outline">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" name="name" id="name">
+                                        <div class="error-feedback" id="name-error"></div>
+                                        @if($errors->has('name'))
+            <div class="error-feedback text-danger">{{ $errors->first('name') }}</div>
+        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-outline">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="address" id="address">
+                                        <div class="error-feedback" id="address-error"></div>
+                                        @if($errors->has('address'))
+            <div class="error-feedback text-danger">{{ $errors->first('address') }}</div>
+        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-outline">
+                                        <label class="form-label">Latitude</label>
+                                        <input type="text" class="form-control" name="latitude" id="latitude">
+                                        <div class="error-feedback" id="latitude-error"></div>
+                                        @if($errors->has('latitude'))
+            <div class="error-feedback text-danger">{{ $errors->first('latitude') }}</div>
+        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-outline">
+                                        <label class="form-label">Longitude</label>
+                                        <input type="text" class="form-control" name="longitude" id="longitude">
+                                        <div class="error-feedback" id="longitude-error"></div>
+                                        @if($errors->has('longitude'))
+            <div class="error-feedback text-danger">{{ $errors->first('longitude') }}</div>
+        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-outline">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-control" name="city" id="city">
+                                        <div class="error-feedback" id="city-error"></div>
+                                        @if($errors->has('city'))
+            <div class="error-feedback text-danger">{{ $errors->first('city') }}</div>
+        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="input-group input-group-outline">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" rows="5" name="description" id="description"></textarea>
+                                    <div class="error-feedback" id="description-error"></div>
+                                    @if($errors->has('description'))
+            <div class="error-feedback text-danger">{{ $errors->first('description') }}</div>
+        @endif
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-icon btn-3 btn-primary align-item-center"
+                                id="add-location-button">
+                                <span class="btn-inner--icon"><i class="material-icons">play_arrow</i></span>
+                                <span class="btn-inner--text">Add location</span>
+                            </button>
+                        </form>
+                        </div>
+        </div>
+    </div>
+                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
+        <div class="card">
+            <div class="card-header bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Top Locations by Comments</h6>
             </div>
-            <div class="col-md-4">
-                <div class="input-group input-group-outline">
-                    <label class="form-label">Address</label>
-                    <input type="text" class="form-control" name="address" id="address">
-                    <div class="error-feedback" id="address-error"></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group input-group-outline">
-                    <label class="form-label">Latitude</label>
-                    <input type="text" class="form-control" name="latitude" id="latitude">
-                    <div class="error-feedback" id="latitude-error"></div>
-                </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Comment Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($topLocations as $topLocation)
+                            <tr>
+                                <td>{{ $topLocation->name }}</td>
+                                <td>{{ $topLocation->comment_count }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                    <h6>Total number of locations</h6>
+                    <th>{{$locationCount}}</th>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <div class="input-group input-group-outline">
-                    <label class="form-label">Longitude</label>
-                    <input type="text" class="form-control" name="longitude" id="longitude">
-                    <div class="error-feedback" id="longitude-error"></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group input-group-outline">
-                    <label class="form-label">City</label>
-                    <input type="text" class="form-control" name="city" id="city">
-                    <div class="error-feedback" id="city-error"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="input-group input-group-outline">
-                <label class="form-label">Description</label>
-                <textarea class="form-control" rows="5" name="description" id="description"></textarea>
-                <div class="error-feedback" id="description-error"></div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-icon btn-3 btn-primary align-item-center" id="add-location-button">
-            <span class="btn-inner--icon"><i class="material-icons">play_arrow</i></span>
-            <span class="btn-inner--text">Add location</span>
-        </button>
-    </form>
+    </div>
 </div>
 
-<script>
-    // Add an event listener for input fields to perform real-time validation
-    const form = document.getElementById('location-form');
+                    <script>
+                        // Add an event listener for input fields to perform real-time validation
+                        const form = document.getElementById('location-form');
 
-    form.addEventListener('input', function (event) {
-        if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-            const inputField = event.target;
-            const fieldName = inputField.name;
-            const errorFeedback = document.getElementById(`${fieldName}-error`);
-            let errorMessage = '';
+                        form.addEventListener('input', function(event) {
+                            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                                const inputField = event.target;
+                                const fieldName = inputField.name;
+                                const errorFeedback = document.getElementById(`${fieldName}-error`);
+                                let errorMessage = '';
 
-            // Custom validation logic based on field name
-            if (fieldName === 'name'  || fieldName === 'address' || fieldName === 'city') {
-                // Check if the input contains only digits
-                if (/^\d+$/.test(inputField.value)) {
-                    errorMessage = 'Should not be a number';
-                }
-                else
-            if(inputField.value.length >= 50)
-            {
-                errorMessage = 'No more than 50 caractere';
-            }
-            }
+                                // Custom validation logic based on field name
+                                if (fieldName === 'name' || fieldName === 'address' || fieldName === 'city') {
+                                    // Check if the input contains only digits
+                                    if (/^\d+$/.test(inputField.value)) {
+                                        errorMessage = 'Should not be a number';
+                                    } else
+                                    if (inputField.value.length >= 50) {
+                                        errorMessage = 'No more than 50 caractere';
+                                    }
+                                }
 
 
-            if (fieldName === 'description') {
-                // Check if the input contains only digits
-                if (/^\d+$/.test(inputField.value)) {
-                    errorMessage = 'Should not be a number';
-                }
-             
-          
-            }
-            
+                                if (fieldName === 'description') {
+                                    // Check if the input contains only digits
+                                    if (/^\d+$/.test(inputField.value)) {
+                                        errorMessage = 'Should not be a number';
+                                    }
 
-            if (fieldName === 'longitude' || fieldName === 'latitude') {
-                // Check if the input contains only digits
-                if (!/^\d+$/.test(inputField.value)) {
-                    errorMessage = 'Should only be a number';
-                }
-            else
-            if(inputField.value.length >= 10)
-            {
-                errorMessage = 'No more than 50 caractere';
-            }
-            }
-            
-           
-            // Example: Check if the input is empty
-            if (inputField.value.trim() === '') {
-                errorMessage = 'This field is required';
-            }
 
-            // Update the errorFeedback
-            errorFeedback.textContent = errorMessage;
-        }
-    });
-</script>
+                                }
+
+
+                                if (fieldName === 'longitude' || fieldName === 'latitude') {
+    if (!/^\d+(\.\d{1,10})?$/.test(inputField.value)) {
+        errorMessage = 'Should only be a number (with up to 10 decimal places)';
+    } else if (inputField.value.length >= 50) {
+        errorMessage = 'No more than 50 characters';
+    }
+}
 
 
 
- 
-       
-<script>
-    // Add an event listener for form submission
-    document.getElementById('location-form').addEventListener('submit', function (event) {
-        // Prevent the default form submission to inspect the data before sending
-        event.preventDefault();
+                                // Example: Check if the input is empty
+                                if (inputField.value.trim() === '') {
+                                    errorMessage = 'This field is required';
+                                }
 
-        // Log form data to the console
-        console.log('Form Data:', new FormData(this));
+                                // Update the errorFeedback
+                                errorFeedback.textContent = errorMessage;
+                            }
+                        });
+                    </script>
 
-        // Optionally, you can also log specific fields like this:
-        console.log('Name:', this.elements['name'].value);
-        console.log('Address:', this.elements['address'].value);
 
-        // Now you can continue with the form submission
-        this.submit();
-    });
-</script>
 
-                
-              
 
-            @include('layouts.footer')
+
+                    <script>
+                        // Add an event listener for form submission
+                        document.getElementById('location-form').addEventListener('submit', function(event) {
+                            // Prevent the default form submission to inspect the data before sending
+                            event.preventDefault();
+
+                            // Log form data to the console
+                            console.log('Form Data:', new FormData(this));
+
+                            // Optionally, you can also log specific fields like this:
+                            console.log('Name:', this.elements['name'].value);
+                            console.log('Address:', this.elements['address'].value);
+
+                            // Now you can continue with the form submission
+                            this.submit();
+                        });
+                    </script>
+
+
+
+
+                    
     </main>
+    @include('layouts.footer')
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="material-icons py-2">settings</i>
@@ -362,6 +443,7 @@
             </div>
         </div>
     </div>
+
     <!--   Core JS Files   -->
     @vite(['resources/assets/js/core/popper.min.js'])
     @vite(['resources/assets/js/core/bootstrap.min.js'])
@@ -376,6 +458,29 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
+<script>
+    // Get references to the search input and the table rows
+    const searchInput = document.getElementById('search-input');
+    const rows = document.querySelectorAll('.table tbody tr');
+
+    // Add an input event listener to the search input
+    searchInput.addEventListener('input', function () {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        // Iterate through the rows and hide/show them based on the search term
+        rows.forEach((row) => {
+            const nameColumn = row.querySelector('td:nth-child(2)');
+            const name = nameColumn.textContent.toLowerCase();
+
+            if (name.includes(searchTerm) || searchTerm === '') {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

@@ -81,7 +81,7 @@ public function update(Request $request, Review $review)
         'email' => 'required|email',
         'subject' => 'required|string',
         'message' => 'required|string',
-        'rating' => 'required|integer|min:1|max:5',
+        'rating' => 'required|integer|between:1,5',
     ]);
 
     $review->update($validatedData);

@@ -149,6 +149,7 @@ class ProduitsController extends Controller
             'prix' => 'required',
             'quantite'=>'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'required',
         ], $customMessages);
 
         if ($request->hasFile('image')) {
