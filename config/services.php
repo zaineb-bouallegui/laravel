@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+    'sparql' => [
+        'endpoint' => 'http://localhost:3030/my-dataset/query', // L'URL de votre point d'accès SPARQL
+    ],
 ];

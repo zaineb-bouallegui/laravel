@@ -16,6 +16,15 @@ use App\Http\Controllers\ToolController;
 use App\Http\Controllers\StockController;
 use App\Models\Produit;
 use App\Models\Categorie;
+use App\Http\Controllers\AymenSparqlController; 
+use App\Http\Controllers\NourSparqlController;
+
+use App\Http\Controllers\AmeniSparqlController;
+use App\Http\Controllers\Art1SparqlController;
+use App\Http\Controllers\Art2SparqlController;
+use App\Http\Controllers\Art3SparqlController;
+use App\Http\Controllers\Art4SparqlController;
+
 /*
 /*
 |--------------------------------------------------------------------------
@@ -221,3 +230,38 @@ Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('s
 Route::get('/export_tools_pdf', [ToolController::class, 'export_tools_pdf'])->name('export_tools_pdf');
 
 /////////////////////////////////////////////////////////////////////////
+
+
+Route::get('/monument', [AymenSparqlController::class,'monumentQuery']);
+Route::get('/ville', [AymenSparqlController::class,'villeQuery']);
+Route::get('/triParCateg', [AymenSparqlController::class,'trieParCategEndroit']);
+Route::get('/endroitEvent', [AymenSparqlController::class,'endroitEvenement']);
+Route::get('/listPhoto', [AymenSparqlController::class,'listPhotos']);
+Route::get('/endroitPhoto', [AymenSparqlController::class,'endroitPhotos']);
+Route::get('/allEndroits', [AymenSparqlController::class,'allEndroits']);
+
+//NourSpark
+Route::get('/categorie',[NourSparqlController::Class,'categorie']);
+Route::get('/nbProduitCat',[NourSparqlController::Class,'nbProduit']);
+Route::get('/produitCher',[NourSparqlController::Class,'maxPrix']);
+Route::get('/produit', [NourSparqlController::Class,'querySparql']);
+
+
+//AmeniSpark
+Route::get('/event1-query-sparql', [AmeniSparqlController::class,'querySparql']);
+Route::get('/event2-query-sparql', [AmeniSparqlController::class,'querySparql1']);
+Route::get('/event3-query-sparql', [AmeniSparqlController::class,'querySparql2']);
+Route::get('/event4-query-sparql', [AmeniSparqlController::class,'querySparql4']);
+//SPARQL participation
+Route::get('/part1-query-sparql', [AmeniSparqlController::class,'querySparql5']);
+Route::get('/part2-query-sparql', [AmeniSparqlController::class,'querySparql6']);
+Route::get('/part3-query-sparql', [AmeniSparqlController::class,'querySparql7']);
+//SPARQL LES 2
+Route::get('/partevent-sparql-results', [AmeniSparqlController::class,'querySparql8']);
+
+
+//Zaineb
+Route::get('/art', [Art1SparqlController::class,'querySparql']);
+Route::get('/style', [Art2SparqlController::class,'querySparql']);
+Route::get('/artstyle', [Art3SparqlController::class,'querySparql']);
+Route::get('/artz', [Art4SparqlController::class,'querySparql']);
